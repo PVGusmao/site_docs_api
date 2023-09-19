@@ -16,8 +16,7 @@ def get_all_patients(request):
 def add_patient(request):
     serializer = PatientsSerializer(data=request.data)
 
-    # print('Testing', serializer.is_valid())
-    # if serializer.is_valid():
-    #     serializer.save()
+    if serializer.is_valid():
+        serializer.save()
 
-    return Response(serializer.is_valid())
+    return Response(serializer.data)
