@@ -14,6 +14,18 @@ def get_all_patients(request):
 
 @api_view(['POST'])
 def add_patient(request):
+    email = request.data['email']
+
+    patient = Pacients.objects.filter(email=request.data['email'])
+
+    if patient.exists():
+        response = {
+            "status": 409,
+            "message": "This patient already exists." ,
+        }
+
+        return  Response(response, status=409)
+
     serializer = PatientsSerializer(data=request.data)
 
     if serializer.is_valid():
